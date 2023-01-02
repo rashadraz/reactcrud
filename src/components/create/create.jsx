@@ -1,18 +1,22 @@
 import { Button, Form } from "semantic-ui-react";
 import React, { useState } from "react";
 import axios from "axios";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 
 function create() {
+	let navigate = useNavigate()
 	const [firstName, setFirstName] = useState("");
 	const [lastName, setLastName] = useState("");
-    console.log(firstName, lastName);
+    
 
     const sendDataToApi = () => {
         axios.post('https://63b2326b5e490925c514f21c.mockapi.io/Crud',{
             firstName,
             lastName
-        })
+        }).then(()=>{
+			navigate('/')
+		})
     }
 
     
@@ -36,6 +40,9 @@ function create() {
 				/>
 			</Form.Field>
 			<Button type="submit" onClick={sendDataToApi}>Submit</Button>
+                <Link to='/'><Button>Home</Button></Link>
+                
+          
 		</Form>
 	);
 }
